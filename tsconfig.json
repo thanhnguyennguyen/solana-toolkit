@@ -18,6 +18,8 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "sourceMap": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
     "outDir": "./dist/tsc/",
     "types": [
       "node",
@@ -25,11 +27,13 @@
     ],
     "lib": [
       "ES6",
-      "DOM"
+      "DOM",
+      "es2020.string"
     ]
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "src/name-mapper/index.js"
   ],
   "exclude": [
     "node_modules",

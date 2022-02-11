@@ -94,10 +94,10 @@ export const inspectMessage = (base64: string): InspectorMessage => {
   };
 };
 
-function deserializeTransaction(bytes: Uint8Array): {
+export const deserializeTransaction = (bytes: Uint8Array): {
   message: Message;
   signatures: string[];
-} | null {
+} | null => {
   const SIGNATURE_LENGTH = 64;
   const signatures = [];
   try {

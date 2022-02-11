@@ -4,10 +4,12 @@ Solana Toolkit aims to provide Solana developers with some utilities
 
 # Usage
  - `Inspector` : inspect encoded message to Solana message / transaction
+ 
   ```typescript
   import { inspectMessage } from `solana-toolkit`
   ```
   - `prettyLog` : beatify program logs like [Solscan](https://solscan.io/tx/2E9GJHVkNpJpGk3FRMZa9ZvjwihqWYxrCYetYGrQTDqivsk2BZBoZpSxZcWz1XHWjEjHSYSi2zbTbNQA2VssZX9T)
+
   ```typescript
   import { prettyProgramLogs } from `solana-toolkit`
   ```

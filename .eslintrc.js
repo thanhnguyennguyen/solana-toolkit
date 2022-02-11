@@ -8,4 +8,12 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
   ],
+  "rules": {
+    "@typescript-eslint/no-var-requires": "off"
+  },
+  "globals": {
+    "$": true,
+    "require": true,
+    "module": true
+  },
 };

@@ -7,4 +7,5 @@ module.exports = {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest"
   },
+  testPathIgnorePatterns: ['src/name-mapper', '/node_modules/']
 }

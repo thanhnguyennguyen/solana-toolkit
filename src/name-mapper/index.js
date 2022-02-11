@@ -1,6 +1,8 @@
-import NAME_MAPPER from './name.js'
+const NAME_MAPPER = require('./name.json')
 
-export function nameMapper(address) {
+const nameMapper = (address) => {
   if (!address || !NAME_MAPPER[address]) return;
   return NAME_MAPPER[address];
 }
+
+module.exports = { nameMapper}

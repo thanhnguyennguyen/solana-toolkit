@@ -1,4 +1,4 @@
-export default {
+{
   "6WpkeqE5oU1MUNPWvMDHhru1G5gjxMgAtib5wXuBSvgm": "Serum market MSRM/WUSDC - Request Queue",
   "DwpUjRHQuotE1LG2R68wZM3nwkv2fChHibcm7NzL8WGq": "Serum market MSRM/WUSDC - Event Queue",
   "7zyPwxjHMJsTdPe7Rd992oe1cVhrZcbkcH9qURzKV8wV": "Serum market MSRM/WUSDC - Order Book (Bids)",
@@ -439,7 +439,6 @@ export default {
   "GZ3WBFsqntmERPwumFEYgrX2B7J7G11MzNZAy7Hje27X": "Serum Market OXY/USDC",
   "7MpMwArporUHEGW7quUpkPZp5L5cHPs9eKUfKCdaPHq2": "Serum Market COPE/USDC",
 
-  //validators
   "ChorusmmK7i1AxXeiTtQgQZhQNiXYU84ULeaYF1EH15n": "Chorus One",
   "Chorus6Kis8tFHA7AowrPMcRJk3LbApHTYpgSNXzY5KE": "Chorus One Vote Account",
   "Awes4Tr6TX8JDzEhCZY2QVNimT6iD1zWHzf1vNyGvpLM": "Staking Facilities",

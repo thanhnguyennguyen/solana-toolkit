@@ -1,4 +1,4 @@
-import { nameMapper } from "../name-mapper"
+import { nameMapper } from '../name-mapper'
 import { getTransactionInstructionError } from "./program-err"
 
 type PrettyLog = {

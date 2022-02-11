@@ -1,13 +1,16 @@
 # Solana Toolkit
 
-Solana Toolkit aims to provide Solana developers utilities
+Solana Toolkit aims to provide Solana developers with some utilities
 
 # Usage
  - `Inspector` : inspect encoded message to Solana message / transaction
   ```typescript
-  import { Inspector } from `solana-toolkit`
+  import { inspectMessage } from `solana-toolkit`
   ```
-
+  - `prettyLog` : beatify program logs like [Solscan](https://solscan.io/tx/2E9GJHVkNpJpGk3FRMZa9ZvjwihqWYxrCYetYGrQTDqivsk2BZBoZpSxZcWz1XHWjEjHSYSi2zbTbNQA2VssZX9T)
+  ```typescript
+  import { prettyProgramLogs } from `solana-toolkit`
+  ```
 
 # Contribution
 
@@ -22,9 +25,7 @@ yarn install
 yarn cli
 yarn lint
 yarn test
-yarn build-all
-yarn ts-node <filename>
-yarn esbuild-browser
+yarn build
 ...
 ```
 
@@ -81,7 +82,6 @@ You can publish the documentation through CI:
 * [GitHub pages](https://pages.github.com/): See [`.github/workflows/deploy-gh-pages.yml`](https://github.com/thanhnguyennguyen/solana-toolkit/blob/master/.github/workflows/deploy-gh-pages.yml)
 * [GitLab pages](https://docs.gitlab.com/ee/user/project/pages/): [`.gitlab-ci.yml`](https://github.com/thanhnguyennguyen/solana-toolkit/blob/master/.gitlab-ci.yml)
 
-This is the documentation for this boilerplate project: https://metachris.github.io/typescript-boilerplate/
 
 ## Feedback
 

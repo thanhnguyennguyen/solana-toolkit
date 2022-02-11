@@ -1,8 +1,7 @@
-import { Message } from "@solana/web3.js";
-import { nameMapper } from "../name-mapper"
+import { Message } from "@solana/web3.js"
+import { nameMapper } from '../name-mapper'
 
-const base58 = require("bs58");
-
+import base58 from "bs58";
 
 type Account = {
   name: string | undefined;
@@ -43,72 +42,62 @@ const MIN_TRANSACTION_LENGTH =
 const MAX_TRANSACTION_SIGNATURES =
   Math.floor((1232 - MIN_TRANSACTION_LENGTH) / (64 + 32)) + 1;
 
+export const inspectMessage = (base64: string): InspectorMessage => {
+  // buffer = Buffer.from(base64, "base64")
+  const buffer = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
 
-
-export const inspectMessage = async (
-  base64: string
-): Promise<InspectorMessage | undefined> => {
-  let buffer;
-  try {
-    buffer = Buffer.from(base64, "base64"); //.toString('base64') //  Uint8Array.from(atob(base64), (c) => c.charCodeAt(0)); // Buffer.from(base64, 'base64').toString('binary')
-  } catch (err) {
-    throw new Error("Input must be base64 encoded");
+  if (buffer.length < MIN_MESSAGE_LENGTH) {
+    throw new Error("Input is not long enough to be valid.");
+  } else if (buffer[0] > MAX_TRANSACTION_SIGNATURES) {
+    throw new Error(`Input starts with invalid byte: "${buffer[0]}"`);
   }
 
-  try {
-    if (buffer.length < MIN_MESSAGE_LENGTH) {
-      throw new Error("Input is not long enough to be valid.");
-    } else if (buffer[0] > MAX_TRANSACTION_SIGNATURES) {
-      throw new Error(`Input starts with invalid byte: "${buffer[0]}"`);
-    }
-
-    const tx = deserializeTransaction(buffer);
-    let rawMessage, message;
-    if (tx) {
-      message = tx.message;
-      rawMessage = message.serialize();
-    } else {
-      message = Message.from(buffer);
-    }
-
-    // parse instructions
-    let accountList: Array<Account> = [];
-    for (const a of message.accountKeys) {
-        accountList.push({
-          name: nameMapper(a.toString()),
-          address: a.toString()
-        })
-    }
-    let parsedInstructions : Array<Instruction> = []
-    for (const ins of message.instructions) {
-      let program = accountList[ins.programIdIndex]
-      let instructionAccounts = ins.accounts.map(a => accountList[a])
-      parsedInstructions.push({
-        program: program,
-        accounts: instructionAccounts,
-        data: {
-          raw: ins.data,
-          hex: Buffer.from(ins.data, "base64").toString('hex')
-        }
-      })
-    }
-    return {
-      raw: rawMessage?.toString("base64"),
-      hex: rawMessage?.toString("hex"),
-      message: message,
-      signatures: tx && tx.signatures ? tx.signatures : [],
-      parsed: {
-        accountList: accountList,
-        instructions: parsedInstructions
-      }
-    };
-  } catch (err) {
-    console.error(err);
-    throw new Error("Cannot inspect data");
+  const tx = deserializeTransaction(buffer);
+  const rawMessage = Buffer.from(base64, "base64");
+  let message;
+  if (tx) {
+    message = tx.message;
+  } else {
+    message = Message.from(buffer);
   }
+
+  // parse instructions
+  const accountList: Array<Account> = [];
+  for (const a of message.accountKeys) {
+    accountList.push({
+      name: nameMapper(a.toString()),
+      address: a.toString(),
+    });
+  }
+  const parsedInstructions: Array<Instruction> = [];
+  for (const ins of message.instructions) {
+    const program = accountList[ins.programIdIndex];
+    const instructionAccounts = ins.accounts.map((a) => accountList[a]);
+    parsedInstructions.push({
+      program: program,
+      accounts: instructionAccounts,
+      data: {
+        raw: ins.data,
+        hex: Buffer.from(ins.data, "base64").toString("hex"),
+      },
+    });
+  }
+  return {
+    raw: rawMessage?.toString("base64"),
+    hex: rawMessage?.toString("hex"),
+    message: message,
+    signatures: tx && tx.signatures ? tx.signatures : [],
+    parsed: {
+      accountList: accountList,
+      instructions: parsedInstructions,
+    },
+  };
 };
 
-function deserializeTransaction(bytes: Buffer) {
+function deserializeTransaction(bytes: Uint8Array): {
+  message: Message;
+  signatures: string[];
+} | null {
   const SIGNATURE_LENGTH = 64;
   const signatures = [];
   try {
@@ -122,17 +111,12 @@ function deserializeTransaction(bytes: Buffer) {
 
     const requiredSignatures = bytes[0];
     if (requiredSignatures !== signaturesLen) {
-      throw new Error(
-        `Signature length mismatch ${requiredSignatures}, ${signaturesLen}`
-      );
+      throw new Error("Signature length mismatch");
     }
   } catch (err) {
-    console.log(err);
     // Errors above indicate that the bytes do not encode a transaction.
-    return undefined;
+    return null;
   }
-
   const message = Message.from(bytes);
-
   return { message, signatures };
 }

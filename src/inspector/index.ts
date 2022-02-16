@@ -75,7 +75,7 @@ export const inspectMessage = (base64: string): InspectorMessage => {
       address: a.toString(),
       signer: message.isAccountSigner(i),
       writable: message.isAccountWritable(i),
-      feePayer: a === feePayer ? true : false
+      feePayer: feePayer && a.equals(feePayer) ? true : false
     })
   })
   const parsedInstructions: Array<Instruction> = []

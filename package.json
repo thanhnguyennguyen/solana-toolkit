@@ -1,6 +1,6 @@
 {
     "name": "solana-toolkit",
-    "version": "0.0.3",
+    "version": "0.0.5",
     "description": "Utilities for Solana developers",
     "author": "NguyenNguyen <nguyenbk92@gmail.com>",
     "repository": "https://github.com/thanhnguyennguyen/solana-toolkit",
@@ -12,12 +12,7 @@
     ],
     "main": "./dist/tsc/main.js",
     "types": "./dist/tsc/main.d.ts",
-    "browser": "./dist/esbuild/browser.js",
-    "bin": {
-        "my-cli-tool": "./dist/esbuild/cli.js"
-    },
     "scripts": {
-        "cli": "ts-node src/cli.ts",
         "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
         "lint-fix": "eslint src/ --ext .js,.jsx,.ts,.tsx --fix",
         "test": "jest",

@@ -46,8 +46,8 @@ const MAX_TRANSACTION_SIGNATURES =
   Math.floor((1232 - MIN_TRANSACTION_LENGTH) / (64 + 32)) + 1
 
 export const inspectMessage = (base64: string): InspectorMessage => {
-  // buffer = Buffer.from(base64, "base64")
-  const buffer = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0))
+  const buffer = Buffer.from(base64, "base64")
+  // const buffer = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0))
 
   if (buffer.length < MIN_MESSAGE_LENGTH) {
     throw new Error("Input is not long enough to be valid.")

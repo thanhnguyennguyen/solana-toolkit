@@ -61,7 +61,7 @@ export const inspectMessage = (base64: string): InspectorMessage => {
   let feePayer : PublicKey | undefined
   if (tx) {
     message = tx.message
-    let tran = Transaction.from(buffer)
+    const tran = Transaction.from(buffer)
     feePayer = tran.feePayer
   } else {
     message = Message.from(buffer)

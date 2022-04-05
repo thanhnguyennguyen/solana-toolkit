@@ -2,11 +2,9 @@ import { default as axios } from "axios";
 
 export const simulateTransaction = async (
   message: string,
-  rpcEndpoint: string | undefined | null
+  rpcEndpoint: string
 ): Promise<any> => {
-  if (!rpcEndpoint) {
-    rpcEndpoint = "https://api.mainnet-beta.solana.com";
-  }
+
   const { data } = await axios({
     url: rpcEndpoint,
     method: "POST",
